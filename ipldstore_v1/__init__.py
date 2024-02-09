@@ -2,7 +2,7 @@
 IPLD stores for zarr
 """
 
-from .ipldstore_v1 import IPLDStore
+from .ipldstore import IPLDStore
 from .contentstore import ContentAddressableStore, MappingCAStore, IPFSStore
 
 import os, json

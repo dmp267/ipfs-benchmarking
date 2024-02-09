@@ -5,7 +5,7 @@ import dag_cbor
 from multiformats import CID, multicodec
 
 from .car import read_car, CARBlockLocation
-from .ipldstore_v1 import inline_objects
+from .ipldstore import inline_objects
 from .utils import StreamLike
 
 def collect_tree_objects(stream_or_bytes: StreamLike) -> Tuple[CID, Dict[CID, Any], Dict[CID, CARBlockLocation]]:
