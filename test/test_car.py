@@ -1,6 +1,6 @@
 from io import BytesIO
 
-import ipldstore.car as car
+import ipldstore_v1.car as car
 
 import pytest
 

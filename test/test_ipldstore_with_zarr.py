@@ -1,7 +1,7 @@
 from io import BytesIO
 
-from ipldstore import IPLDStore
-from ipldstore.contentstore import MappingCAStore
+from ipldstore_v1 import IPLDStore
+from ipldstore_v1.contentstore import MappingCAStore
 
 import zarr
 import numpy as np

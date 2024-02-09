@@ -2,8 +2,8 @@ import os
 import json
 import tempfile
 
-from ipldstore.car_reference_fs import car2reference_fs
-from ipldstore import IPLDStore
+from ipldstore_v1.car_reference_fs import car2reference_fs
+from ipldstore_v1 import IPLDStore
 
 import xarray as xr
 

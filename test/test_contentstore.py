@@ -1,4 +1,4 @@
-from ipldstore.contentstore import MappingCAStore
+from ipldstore_v1.contentstore import MappingCAStore
 from multiformats import CID
 
 import pytest

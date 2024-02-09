@@ -1,4 +1,4 @@
-from ipldstore import IPLDStore, MappingCAStore
+from ipldstore_v1 import IPLDStore, MappingCAStore
 
 import pytest
 
