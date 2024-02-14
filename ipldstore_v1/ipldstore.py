@@ -82,7 +82,7 @@ class IPLDStore(MutableMappingSB):
                 cid_to_key_map[get_value] = key
                 to_async_get.append(get_value)
                 
-        print(f'HAMT ops time:  {time.time() - start} seconds')
+        print(f'IPLDStore get time:  {time.time() - start} seconds')
         print('------------------------------------------------')
         print()
 
