@@ -5,6 +5,7 @@ from itertools import zip_longest
 
 import aiohttp
 import asyncio
+import time
 
 from multiformats import CID, multicodec, multibase, multihash, varint
 import cbor2, dag_cbor
@@ -185,11 +186,13 @@ class MappingCAStore(ContentAddressableStore):
 
 
 async def _async_get(host: str, session: aiohttp.ClientSession, cid: CID):
+    start = time.time()
     if cid.codec == DagPbCodec:
         api_method = "/api/v0/cat"
     else:
         api_method = "/api/v0/block/get"
     async with session.post(host + api_method, params={"arg": str(cid)}) as resp:
+        print(f'aiohttp POST: {time.time() - start:.3f}s | ({resp.url})')
         return await resp.read()
 
 async def _main_async(keys: List[CID], host: str, d: Dict[CID, bytes]):
@@ -255,12 +258,13 @@ class IPFSStore(ContentAddressableStore):
         validate(cid, CID)
 
         session = get_retry_session()
-    
+        start = time.time()
         if cid.codec == DagPbCodec:
             res = session.post(self._host + "/api/v0/cat", params={"arg": str(cid)})
         else:
             res = session.post(self._host + "/api/v0/block/get", params={"arg": str(cid)})
         res.raise_for_status()
+        print(f'requests (retry) POST: {time.time() - start:.3f}s | ({res.url})')
         return res.content
 
     def make_tree_structure(self, node):
