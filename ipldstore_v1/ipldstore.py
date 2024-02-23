@@ -54,9 +54,12 @@ class IPLDStore(MutableMappingSB):
         if isinstance(self._store, IPFSStore) and should_async_get:
             # Monkey patch zarr to use the async get of multiple chunks
             def storage_getitems(kv_self, keys, on_error="omit"):
+                print(f'zarr storage_getitems: getting {len(keys)} keys')
                 return kv_self._mutable_mapping.getitems(keys)
+            
             import zarr
             zarr.KVStore.getitems = storage_getitems
+
         self.sep = sep
         self.root_cid: Optional[CID] = None
 
