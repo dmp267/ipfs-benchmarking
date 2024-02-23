@@ -19,7 +19,6 @@ from requests.adapters import HTTPAdapter, Retry
 from .car import read_car
 from .utils import StreamLike
 
-
 ValueType = Union[bytes, DagCborEncodable]
 
 RawCodec = multicodec.get("raw")
@@ -198,7 +197,7 @@ async def _async_get(host: str, session: aiohttp.ClientSession, cid: CID):
 
 async def _main_async(keys: List[CID], host: str, d: Dict[CID, bytes]):
     async with aiohttp.ClientSession() as session:
-        print(f'_main_async numbers of keys: {len(keys)}')
+        print(f'_main_async: gathering {len(keys)} tasks')
         tasks = [_async_get(host, session, key) for key in keys]
         start = time.time()
         byte_list = await asyncio.gather(*tasks)
