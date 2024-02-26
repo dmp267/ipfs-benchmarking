@@ -192,7 +192,10 @@ async def _async_get(host: str, session: aiohttp.ClientSession, cid: CID):
         api_method = "/api/v0/block/get"
     async with session.post(host + api_method, params={"arg": str(cid)}) as resp:
         res = await resp.read()
-        print(f'aiohttp POST: {time.time() - start:.3f}s | ({resp.url})')
+        print(f'aiohttp {"CAT" if cid.codec == DagPbCodec else "BLOCK GET"}: {time.time() - start:.3f}s | ({resp.url})')
+        with open('cat.log', 'a') as f:
+            f.write(f'{resp.url}\n')
+            f.close()
         return res
 
 async def _main_async(keys: List[CID], host: str, d: Dict[CID, bytes]):
@@ -267,7 +270,7 @@ class IPFSStore(ContentAddressableStore):
         else:
             res = session.post(self._host + "/api/v0/block/get", params={"arg": str(cid)})
         res.raise_for_status()
-        print(f'requests (retry) POST: {time.time() - start:.3f}s | ({res.url})')
+        print(f'requests (retry) {"CAT" if cid.codec == DagPbCodec else "BLOCK GET"}: {time.time() - start:.3f}s | ({res.url})')
         return res.content
 
     def make_tree_structure(self, node):
